@@ -14,7 +14,7 @@ my_list = [42, 69, 322, 13, 0, 99, -5, 9, 8, 7, -6, 5]
 
 def positiv_numbers(a):
     i = 0
-    while i <= len(a):
+    while i < len(a):
         if a[i] >= 0:
             print(a[i], end=" ")
         else:
