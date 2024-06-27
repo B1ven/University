@@ -27,8 +27,10 @@ my_dict["Andrey"] = 1990
 my_dict["Ivan"] = 2000
 print(my_dict)
 
-my_dict.pop("Andrey")
+temp = my_dict.pop("Andrey")
 print(my_dict)
+print(temp)
+
 
 my_set = {1, 1, 2, 2, 3, 3, 5, 5, True, True, False, False, "z", 'z'}
 print(my_set)
