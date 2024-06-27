@@ -33,7 +33,7 @@ def string_info(string):
 
 
 def is_contains(string, list1):
-    list1 = [i.lower() for i in list1]
+    list1 = [с.lower() for с in list1]
     count_calls()
     return string.lower() in list1
 
