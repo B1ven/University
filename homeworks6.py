@@ -27,7 +27,7 @@ my_dict["Andrey"] = 1990
 my_dict["Ivan"] = 2000
 print(my_dict)
 
-temp = my_dict.pop("Andrey")
+temp = my_dict.popitem()
 print(my_dict)
 print(temp)
 
