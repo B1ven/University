@@ -24,6 +24,8 @@ for i in range(len(numbers)):
     for j in range(1, numbers[i] + 1):
         if numbers[i] % j == 0:
             count += 1
+        if count > 2:
+            continue
     if count == 2:
         primes.append(numbers[i])
     else:
