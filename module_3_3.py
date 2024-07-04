@@ -25,9 +25,9 @@ values_list_2 = [54.32, 'Строка']
 print_params(*values_list_2, 42)
 
 values_list = [5, 'String', 5.5]
-values_dict = {'Строка': 'Python',
-               1: 1,
-               True: False}
+values_dict = {'a': 'Python',
+               'b': 1,
+               'c': False}
 
 print_params(*values_list)
 print_params(*values_dict)
