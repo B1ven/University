@@ -30,7 +30,7 @@ class Vehicle:
         
     
 class Sedan(Vehicle):
-    pass
+    __PASSENGERS_LIMIT = 5
 
 
 # Текущие цвета __COLOR_VARIANTS = ['black', 'metallic', 'grey', 'blue', 'red']
