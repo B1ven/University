@@ -17,7 +17,7 @@ kb.add(button)
 
 inl = InlineKeyboardMarkup()
 inlbutton = InlineKeyboardButton(text='Рассчитать норму каллорий', callback_data='сalories')
-inlbutton2 = InlineKeyboardButton(text='Формула каллорий', callback_data='formula')
+inlbutton2 = InlineKeyboardButton(text='Формулы расчёта', callback_data='formula')
 inl.add(inlbutton, inlbutton2)
 
 
@@ -40,7 +40,7 @@ async def main_menu(message):
 
 
 @dp.callback_query_handler(text='formula')
-async def info_calories(call):
+async def get_formulas(call):
     info_text = """Упрощенный вариант формулы Миффлина-Сан Жеора:
 
 для мужчин: 10 х вес (кг) + 6,25 x рост (см) – 5 х возраст (г) + 5;
