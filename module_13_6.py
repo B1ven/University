@@ -12,8 +12,9 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 
 kb = ReplyKeyboardMarkup(resize_keyboard=True)
-button = KeyboardButton(text='/Рассчитать')
-kb.add(button)
+button = KeyboardButton(text='Рассчитать')
+button2 = KeyboardButton(text='Информация')
+kb.add(button, button2)
 
 inl = InlineKeyboardMarkup()
 inlbutton = InlineKeyboardButton(text='Рассчитать норму каллорий', callback_data='сalories')
@@ -34,7 +35,7 @@ class UserState(StatesGroup):
     weight = State()
 
 
-@dp.message_handler(commands=['Рассчитать'])
+@dp.message_handler(text=['Рассчитать'])
 async def main_menu(message):
     await message.answer("Выберите опцию", reply_markup=inl)
 
@@ -51,7 +52,7 @@ async def get_formulas(call):
 
 
 @dp.callback_query_handler(text='сalories')
-async def set_age(call):
+async def set_gender(call):
     await call.message.answer('Введите Ваш пол М/Ж')
     await call.answer()
     await UserState.gender.set()
