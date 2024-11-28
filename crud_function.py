@@ -34,5 +34,5 @@ def get_all_products():
 
 
 def user_auth(name, age, email):
-    cursor.execute("INSERT INTO Users (username, email, age) VALUES(?,?,?)", (username, email, age))
+    cursor.execute("INSERT INTO Users (username, email, age) VALUES(?,?,?)", (name, email, age))
 
