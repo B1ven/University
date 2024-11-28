@@ -13,7 +13,8 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 kb = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Рассчитать калории'),
      KeyboardButton(text='Купить товар')],
-    [KeyboardButton(text='Информация')]
+    [KeyboardButton(text='Информация')],
+    [KeyboardButton(text='Регистрация')]
 ],
     resize_keyboard=True)
 
@@ -47,6 +48,39 @@ class UserState(StatesGroup):
     age = State()
     growth = State()
     weight = State()
+
+
+class RegisterUser(StatesGroup):
+    name = State()
+    age = State()
+    email = State()
+
+
+@dp.message_handler(text=['Регистрация'])
+async def add_username(message):
+    await message.answer('Введите ваше имя')
+    await RegisterUser.name.set()
+
+
+@dp.message_handler(state=RegisterUser.name)
+async def add_userage(message, state):
+    await state.update_data(name=message.text)
+    await message.answer('Введите свой возраст')
+    await RegisterUser.age.set()
+
+
+@dp.message_handler(state=RegisterUser.age)
+async def add_email(message, state):
+    await state.update_data(age=message.text)
+    await message.answer('Укажите ваш email')
+    await RegisterUser.email.set()
+
+
+@dp.message_handler(state=RegisterUser.email)
+async def create_profile(message, state):
+    await state.update_data(email=message.text)
+    userdata = await state.get_data()
+    crud_function.user_auth(userdata[name], userdata[age], userdata[email])
 
 
 @dp.message_handler(text=['Рассчитать калории'])
