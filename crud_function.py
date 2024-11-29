@@ -36,3 +36,7 @@ def get_all_products():
 def user_auth(name, age, email):
     cursor.execute("INSERT INTO Users (username, email, age, balance) VALUES(?,?,?,?)", (name, email, age, 1000))
 
+
+connection.commit()
+connection.close()
+

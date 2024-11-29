@@ -154,8 +154,10 @@ async def send_fame_calories(call, state):
 
 @dp.message_handler(text=['Купить товар'])
 async def get_buying_list(message):
-    for i in range(1, 5):
-        text = f'Название: Product {i} | Описание: описание {i} | Цена: {i * 100}'
+    list_product = crud_function.get_all_products()
+    for i in list_product:
+        title, description, price = i[1:]
+        text = f'Название: {title} | {description} | Цена: {price}'
         await message.answer(text)
         with open('кот.jpg', 'rb') as img:
             await message.answer_photo(img)
