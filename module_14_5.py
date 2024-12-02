@@ -6,6 +6,8 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import asyncio
 import aioTeleBot
+from crud_function import *
+
 
 bot = Bot(token=aioTeleBot.api)
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -80,7 +82,8 @@ async def add_email(message, state):
 async def create_profile(message, state):
     await state.update_data(email=message.text)
     userdata = await state.get_data()
-    crud_function.user_auth(userdata[name], userdata[age], userdata[email])
+    await message.answer(user_auth(userdata['name'], userdata['age'], userdata['email']))
+    await state.finish()
 
 
 @dp.message_handler(text=['Рассчитать калории'])
