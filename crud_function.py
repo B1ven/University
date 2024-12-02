@@ -4,13 +4,13 @@ connection = sqlite3.connect('products_place.db')
 cursor = connection.cursor()
 
 
-def initiate_db():
+def initiat_db():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS Product(
     id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT,
-    price INTEGER NOT NULL)
+    price INTEGER NOT NULL);
     """)
 
     cursor.execute("""
@@ -20,13 +20,8 @@ def initiate_db():
     email TEXT NOT NULL,
     age INTEGER NOT NULL,
     balance INTEGER NOT NULL
-    )
+    );
     """)
-
-
-for i in range(1, 5):
-    cursor.execute(f"INSERT INTO Product (title, description, price) VALUES(?,?,?)",
-               (f'Product{i}', f'Описание продукта{i}', 100 * i))
 
 
 def get_all_products():
@@ -34,9 +29,18 @@ def get_all_products():
 
 
 def user_auth(name, age, email):
-    cursor.execute("INSERT INTO Users (username, email, age, balance) VALUES(?,?,?,?)", (name, email, age, 1000))
+    check_member = cursor.execute("SELECT * FROM Users WHERE email=?", (email,))
+    if check_member.fetchone() is None:
+        cursor.execute("INSERT INTO Users (username, email, age, balance) VALUES(?,?,?,?)",
+                       (name, email, age, 1000))
+        connection.commit()
+        return f'Добро пожаловать {name}!'
+    else:
+        return f'Пользователь с таким "email" уже существует'
 
+
+# print(user_auth('qwer', 2, '1221'))
 
 connection.commit()
-connection.close()
+# connection.close()
 
