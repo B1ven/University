@@ -1,32 +1,42 @@
-from fastapi import FastAPI
-from typing import Annotated
-
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 app = FastAPI()
+users = []
 
 
-users = {'1': 'Имя: Example, возраст: 18'}
+class User(BaseModel):
+    id: int
+    username: str
+    age: int
 
 
-@app.get("/users")
-async def message() -> dict:
+@app.get('/users')
+def get_users():
     return users
 
 
-@app.post("/user/{username}/{age}")
-async def info_user(username: str, age: int):
-    current_index = str(int(max(users, key=int)) + 1)
-    users[current_index] = f"Имя: {username}, возраст: {age}"
-    return f"User {current_index} is registered"
+@app.post('/user/{username}/{age}')
+def create_user(username: str, age: int):
+    new_id = 1 if not users else users[-1].id + 1
+    new_user = User(id=new_id, username=username, age=age)
+    users.append(new_user)
+    return new_user
 
 
-@app.put("/user/{user_id}/{username}/{age}")
-async def update_message(user_id: int, username: str, age: int):
-    users[user_id] = f"Имя: {username}, возраст: {age}"
-    return f"The user {user_id} is updated"
+@app.put('/user/{user_id}/{username}/{age}')
+def update_user(user_id: int, username: str, age: int):
+    for user in users:
+        if user.id == user_id:
+            user.username = username
+            user.age = age
+            return user
+    raise HTTPException(status_code=404, detail="User was not found")
 
 
-@app.delete("/user/{user_id}")
-async def delete_user(user_id: str):
-    users.pop(user_id)
-    return f"The user {user_id} has been delete"
+@app.delete('/user/{user_id}')
+def delete_user(user_id: int):
+    for i, user in enumerate(users):
+        if user.id == user_id:
+            return users.pop(i)
+    raise HTTPException(status_code=404, detail="User was not found")
