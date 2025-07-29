@@ -34,6 +34,36 @@ def greetings(name):
 print(greetings('Biven')) # Результат - "Biven welcome to Python Everyon"
 
 
+def add_ten(num):
+  return num + 10
+
+print(add_ten(90)) # результат - 100
+
+
+def square_number(x):
+  return x * x
+
+print(square_number(2)) # Результат - 4
+
+
+def area_of_circle(r):
+  pi = 3.14
+  area = pi * r ** 2
+  return area
+
+print(area_of_circle(50))
+
+
+def sum_of_numbers(n):
+  total = 0
+  for i in range(n+1):
+    total += i
+  return total
+
+print(sum_of_numbers(10))
+print(sum_of_numbers(55))
+
+
 
 
 
